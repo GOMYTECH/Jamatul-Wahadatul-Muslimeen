@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Donations - Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .donation-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .donation-header h1 {
+            color: var(--primary);
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .donation-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Donation Card */
+        .donation-card {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        /* Tabs */
+        .donation-tabs {
+            display: flex;
+            background: var(--primary-light);
+            border-bottom: 1px solid rgba(10, 92, 54, 0.2);
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        /* Form Sections */
+        .form-section {
+            padding: 2.5rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Donation Types */
+        .donation-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .donation-type {
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .donation-type:hover {
+            background: var(--primary-light);
+        }
+
+        .donation-type.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .donation-type i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Amount Selection */
+        .amount-selection {
+            margin-bottom: 1.5rem;
+        }
+
+        .amount-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .amount-option {
+            padding: 0.75rem 1.25rem;
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .amount-option:hover {
+            background: var(--primary-light);
+        }
+
+        .amount-option.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .custom-amount {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .custom-amount span {
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        .custom-amount input {
+            flex: 1;
+            max-width: 200px;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-label.required:after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-method {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .payment-method i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #07482b;
+            transform: translateY(-2px);
+        }
+
+        /* Loading state */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: button-loading-spinner 1s ease infinite;
+        }
+
+        @keyframes button-loading-spinner {
+            from {
+                transform: rotate(0turn);
+            }
+            to {
+                transform: rotate(1turn);
+            }
+        }
+
+        /* Error state */
+        .error-field {
+            border-color: #e74c3c !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .donation-tabs {
+                flex-direction: column;
+            }
+            
+            .tab.active:after {
+                height: 100%;
+                width: 3px;
+                bottom: auto;
+                right: auto;
+            }
+            
+            .donation-types {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="donation-header">
+            <h1>Support Our Islamic Cause</h1>
+            <p>"The example of those who spend their wealth in the Way of Allah is like that of a grain of corn..." (Quran 2:261)</p>
+        </div>
+
+        <div class="donation-card">
+            <!-- Donation Type Tabs -->
+            <div class="donation-tabs">
+                <div class="tab active" data-tab="zakat">Zakāt</div>
+                <div class="tab" data-tab="sadaqah">Ṣadaqah</div>
+                <div class="tab" data-tab="general">General Donation</div>
+            </div>
+
+            <!-- Form Content -->
+            <div class="form-section">
+                <!-- Donation Purpose -->
+                <div class="form-group">
+                    <label class="form-label required">Donation Purpose</label>
+                    <div class="donation-types">
+                        <div class="donation-type selected" data-purpose="general">
+                            <i class="fas fa-mosque"></i>
+                            <span>Masjid Fund</span>
+                        </div>
+                        <div class="donation-type" data-purpose="education">
+                            <i class="fas fa-book-quran"></i>
+                            <span>Islamic Education</span>
+                        </div>
+                        <div class="donation-type" data-purpose="orphan">
+                            <i class="fas fa-hands-helping"></i>
+                            <span>Orphan Support</span>
+                        </div>
+                        <div class="donation-type" data-purpose="event">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Event/Program</span>
+                        </div>
+                        <div class="donation-type" data-purpose="eid">
+                            <i class="fas fa-gift"></i>
+                            <span>Eid Gifts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amount Selection -->
+                <div class="amount-selection">
+                    <label class="form-label required">Donation Amount (₦)</label>
+                    <div class="amount-options">
+                        <div class="amount-option" data-amount="1000">₦1,000</div>
+                        <div class="amount-option" data-amount="5000">₦5,000</div>
+                        <div class="amount-option selected" data-amount="10000">₦10,000</div>
+                        <div class="amount-option" data-amount="25000">₦25,000</div>
+                        <div class="amount-option" data-amount="50000">₦50,000</div>
+                        <div class="amount-option" data-amount="100000">₦100,000</div>
+                    </div>
+                    <div class="custom-amount">
+                        <span>Or enter custom amount:</span>
+                        <input type="number" id="customAmount" placeholder="e.g. 7500">
+                    </div>
+                </div>
+
+                <!-- Donor Information -->
+                <h3 class="section-title">Donor Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName" class="form-label required">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label required">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label required">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country" class="form-label required">Country</label>
+                        <select id="country" class="form-control" required>
+                            <option value="NG" selected>Nigeria</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Zakat Specific Fields -->
+                <div id="zakatFields" style="display: none;">
+                    <h3 class="section-title">Zakāt Declaration</h3>
+                    <div class="form-group">
+                        <label class="form-label required">Zakāt Type</label>
+                        <select id="zakatType" class="form-control">
+                            <option value="wealth">Wealth (Zakāt al-Māl)</option>
+                            <option value="fitrah">Fitrah (Zakāt al-Fiṭr)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nisāb Calculation Year</label>
+                        <select id="nisabYear" class="form-control">
+                            <option value="current">Current Islamic Year</option>
+                            <option value="previous">Previous Islamic Year</option>
+                        </select>
+                    </div>
+                    <div class="form-check" style="margin-bottom: 1rem;">
+                        <input type="checkbox" id="zakatDeclaration" class="form-check-input" required>
+                        <label for="zakatDeclaration" class="form-label">I declare this is my obligatory Zakāt payment</label>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <h3 class="section-title">Payment Method</h3>
+                <div class="payment-methods">
+                    <div class="payment-method selected" data-method="card">
+                        <i class="fas fa-credit-card"></i>
+                        <div>Credit/Debit Card</div>
+                    </div>
+                    <div class="payment-method" data-method="bank">
+                        <i class="fas fa-university"></i>
+                        <div>Bank Transfer</div>
+                    </div>
+                    <div class="payment-method" data-method="mobile">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>Mobile Money</div>
+                    </div>
+                </div>
+
+                <!-- Additional Options -->
+                <div class="form-group">
+                    <label class="form-label">Additional Options</label>
+                    <div class="form-check">
+                        <input type="checkbox" id="recurring" class="form-check-input">
+                        <label for="recurring" class="form-label">Make this a monthly recurring donation</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="anonymous" class="form-check-input">
+                        <label for="anonymous" class="form-label">Donate anonymously</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary" id="donateButton">
+                    <i class="fas fa-hand-holding-heart"></i> Donate Now
+                </button>
+
+                <div style="text-align: center; margin-top: 1rem; color: var(--text-light); font-size: 0.9rem;">
+                    <p>Your donation is tax-deductible as allowed by law</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Track Monnify SDK status
+        let monnifyLoaded = false;
+        let paymentInitialized = false;
+    
+        // Load Monnify SDK with fallback
+        function loadMonnifySDK() {
+            return new Promise((resolve, reject) => {
+                if (typeof MonnifySDK !== 'undefined') {
+                    monnifyLoaded = true;
+                    return resolve();
+                }
+    
+                const script = document.createElement('script');
+                script.src = 'https://sdk.monnify.com/plugin/monnify.js';
+                script.onload = () => {
+                    monnifyLoaded = true;
+                    console.log('Monnify SDK loaded successfully');
+                    resolve();
+                };
+                script.onerror = () => {
+                    console.error('Failed to load Monnify SDK');
+                    reject(new Error('Failed to load payment processor'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+    
+        // Load Monnify when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMonnifySDK().catch(err => {
+                console.warn('Initial Monnify load failed, will retry when needed');
+            });
+        });
+    
+        // Tab Switching
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('zakatFields').style.display = this.dataset.tab === 'zakat' ? 'block' : 'none';
+            });
+        });
+    
+        // Donation Purpose Selection
+        const donationTypes = document.querySelectorAll('.donation-type');
+        donationTypes.forEach(type => {
+            type.addEventListener('click', function () {
+                donationTypes.forEach(t => t.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    
+        // Amount Selection
+        const amountOptions = document.querySelectorAll('.amount-option');
+        amountOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                amountOptions.forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('customAmount').value = '';
+            });
+        });
+    
+        document.getElementById('customAmount').addEventListener('input', function () {
+            amountOptions.forEach(o => o.classList.remove('selected'));
+        });
+    
+        // Payment Method
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function () {
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    
+        // Generate Reference
+        function generateReference() {
+            return 'DON-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+        }
+    
+        // Handle Submit
+        document.getElementById('donateButton').addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            const button = this;
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = 'Processing...';
+            button.classList.add('btn-loading');
+            button.disabled = true;
+    
+            // Validate form
+            const requiredFields = document.querySelectorAll('[required]');
+            let isValid = true;
+    
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    field.classList.add('error-field');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error-field');
+                }
+            });
+    
+            if (!isValid) {
+                alert('Please fill in all required fields');
+                resetButton();
+                return;
+            }
+    
+            // Get amount
+            let amount = 0;
+            const selectedAmountOption = document.querySelector('.amount-option.selected');
+            if (selectedAmountOption) {
+                amount = parseInt(selectedAmountOption.dataset.amount);
+            } else if (document.getElementById('customAmount').value) {
+                amount = parseInt(document.getElementById('customAmount').value);
+            }
+    
+            if (isNaN(amount) || amount <= 0) {
+                alert('Please enter a valid amount greater than zero');
+                resetButton();
+                return;
+            }
+    
+            // Collect form data
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const purpose = document.querySelector('.donation-type.selected')?.dataset.purpose || 'general';
+            const type = document.querySelector('.tab.active')?.dataset.tab || 'general';
+            const paymentMethod = document.querySelector('.payment-method.selected')?.dataset.method || 'card';
+            const reference = generateReference();
+    
+            // Ensure Monnify is loaded
+            if (!monnifyLoaded) {
+                try {
+                    console.log('Monnify not loaded, attempting to load now...');
+                    await loadMonnifySDK();
+                } catch (error) {
+                    console.error('Failed to load Monnify:', error);
+                    alert('Payment system is currently unavailable. Please try again later.');
+                    resetButton();
+                    return;
+                }
+            }
+    
+            // Initialize payment
+            try {
+                paymentInitialized = true;
+                console.log('Initializing payment with amount:', amount);
+                MonnifySDK.initialize({
+      // ... existing config ...
+      metadata: { // This captures ALL form data
+        full_name: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        donation_purpose: document.querySelector('.donation-type.selected').textContent,
+        is_anonymous: document.getElementById('anonymous').checked
+      }
+    });
+                MonnifySDK.initialize({
+                    amount: amount,
+                    currency: "NGN",
+                    reference: reference,
+                    customerFullName: fullName,
+                    customerEmail: email,
+                    customerMobileNumber: phone,
+                    apiKey: "MK_TEST_R534M6JRE8",
+                    contractCode: "2870294967",
+                    paymentDescription: `${type} Donation for ${purpose}`,
+                    paymentMethods: paymentMethod === 'card' ? ["CARD"] :
+                                  paymentMethod === 'bank' ? ["ACCOUNT_TRANSFER"] : ["PHONE_NUMBER"],
+                    incomeSplitConfig: [],
+                    
+                    onComplete: function(response) {
+                        console.log("Payment completed:", response);
+                        
+                        try {
+                            if (response.status === "SUCCESS") {
+                                alert("Payment successful! Thank you for your donation.");
+                            } else {
+                                alert("Payment was not completed: " + (response.message || "Payment failed"));
+                            }
+                        } catch (error) {
+                            console.error("Error handling payment completion:", error);
+                            alert("Payment processed but we encountered an error. Please contact support.");
+                        } finally {
+                            resetButton();
+                        }
+                    },
+                    
+                    onClose: function(data) {
+                        console.log("Payment modal closed", data);
+                        if (paymentInitialized) resetButton();
+                    }
+                });
+    
+                // Set timeout in case payment modal fails to open
+                setTimeout(() => {
+                    if (paymentInitialized && !document.querySelector('.monnify-modal')) {
+                        console.warn("Payment modal didn't open within 3 seconds");
+                        alert("Payment system is not responding. Please try again.");
+                        resetButton();
+                    }
+                }, 3000);
+    
+            } catch (error) {
+                console.error("Payment initialization error:", error);
+                alert("Failed to initialize payment. Please try again.");
+                resetButton();
+            }
+    
+            function resetButton() {
+                button.innerHTML = originalText;
+                button.classList.remove('btn-loading');
+                button.disabled = false;
+                paymentInitialized = false;
+            }
+        });
+    </script>
+</body>
+</html>
