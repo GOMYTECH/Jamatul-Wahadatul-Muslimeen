@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Programs | Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --border: #e0e0e0;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-logo {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* How to Join Section */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .step-title {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            padding-right: 1rem;
+        }
+
+        /* Program Highlights */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .highlight-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+
+        .highlight-title {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-title i {
+            margin-right: 0.75rem;
+            color: var(--secondary);
+        }
+
+        /* WhatsApp Group */
+        .whatsapp-section {
+            background: var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .whatsapp-icon {
+            font-size: 3rem;
+            color: #25D366;
+            margin-bottom: 1rem;
+        }
+
+        /* Registration Button */
+        .register-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .register-btn:hover {
+            background: #07482b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(10, 92, 54, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-card {
+                padding: 1.5rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <img src="https://via.placeholder.com/100x100?text=JWM" alt="Logo" class="page-logo">
+            <h1>Islamic Youth Programs</h1>
+            <p>Empowering the next generation of Muslim leaders through knowledge, brotherhood, and Islamic values</p>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">How to Join</h2>
+            <p>Participation in our youth programs is open to all registered members of Jamatul Wahadatul Muslimeen aged 15-35 years.</p>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Register as a Member</h3>
+                    <p>Complete the official membership registration form either at our center or through our website.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Verify Your Age</h3>
+                    <p>Provide proof of age (15-35 years) during registration to qualify for youth programs.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Get Added to WhatsApp</h3>
+                    <p>After verification, you'll be added to our exclusive youth WhatsApp group for announcements and discussions.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="membership.html" class="register-btn">Become a Member Now</a>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">Program Highlights</h2>
+            <p>Our youth initiatives combine Islamic education with personal development in an engaging format:</p>
+            
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-calendar-star"></i>
+                        <span>Annual Youth Retreat</span>
+                    </h3>
+                    <p>3-day residential program featuring Islamic workshops, outdoor activities, and leadership training (dates announced annually).</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-laptop"></i>
+                        <span>Online Classes</span>
+                    </h3>
+                    <p>Weekly virtual sessions on Quran study, contemporary Islamic issues, and career guidance for young Muslims.</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-users"></i>
+                        <span>Brotherhood Circles</span>
+                    </h3>
+                    <p>Monthly meetups grouped by age brackets (15-20, 21-25, 26-35) for tailored Islamic discussions and networking.</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>Community Service</span>
+                    </h3>
+                    <p>Quarterly projects where youth organize charity drives, mosque cleanups, and Islamic outreach programs.</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-book-quran"></i>
+                        <span>Tahfiz Program</span>
+                    </h3>
+                    <p>Structured Quran memorization tracks with qualified teachers and progress certifications.</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Career Guidance</span>
+                    </h3>
+                    <p>Workshops on Islamically-responsible career paths, CV building, and entrepreneurship from Muslim professionals.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">WhatsApp Community</h2>
+            
+            <div class="whatsapp-section">
+                <div class="whatsapp-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Join Our Youth Network</h3>
+                <p>All verified youth members are added to our active WhatsApp group for:</p>
+                <ul style="margin-top: 1rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    <li>Daily Islamic reminders</li>
+                    <li>Program announcements</li>
+                    <li>Discussion forums</li>
+                    <li>Q&A with scholars</li>
+                    <li>Online class links</li>
+                </ul>
+                <p style="margin-top: 1.5rem; font-weight: 600;">You'll be automatically added after membership registration!</p>
+            </div>
+        </div>
+
+        <div class="content-card" style="text-align: center;">
+            <h2 class="section-title">Ready to Join?</h2>
+            <p>Become part of a vibrant community of young Muslims growing together in faith and knowledge.</p>
+            <a href="membership.html" class="register-btn">Register as Member</a>
+            <p style="margin-top: 1.5rem; color: var(--text-light);">Already a member? <a href="contact.html" style="color: var(--primary);">Contact us</a> to verify your youth status</p>
+        </div>
+    </div>
+</body>
+</html>

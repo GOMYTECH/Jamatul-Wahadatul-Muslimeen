@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosques & Centers | Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --border: #e0e0e0;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-logo {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Mosque Cards */
+        .mosque-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mosque-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .mosque-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .mosque-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .mosque-content {
+            padding: 1.5rem;
+        }
+
+        .mosque-title {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .mosque-address {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .mosque-address i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .contact-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            width: 20px;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        /* Prayer Timings */
+        .prayer-timings {
+            background: var(--primary-light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .prayer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .prayer-title {
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .prayer-title i {
+            margin-right: 0.5rem;
+        }
+
+        .prayer-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .timings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .prayer-time {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .prayer-time span {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 3rem;
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        #mosqueMap {
+            height: 100%;
+            width: 100%;
+        }
+
+        .map-controls {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .map-controls button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .map-controls button:hover {
+            background: #07482b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mosque-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <img src="Logo Maker 2025_04_10_01_33_00.png" alt="JWM Logo" class="page-logo">
+            <h1>Our Mosques in Ibadan</h1>
+            <p>Find prayer times, locations, and contact information for Jamatul Wahadatul Muslimeen facilities in Ibadan</p>
+        </div>
+
+        <!-- Mosques Grid -->
+        <div class="mosque-grid">
+            <!-- Bere Ibadan Revival Mosque -->
+            <div class="mosque-card" data-mosque-id="1" data-lat="7.3775" data-lng="3.9470">
+                <img src="https://images.unsplash.com/photo-1560303253-2af03739a95a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Bere Ibadan Revival Mosque" class="mosque-image">
+                <div class="mosque-content">
+                    <h3 class="mosque-title">Bere Ibadan Revival Mosque</h3>
+                    <div class="mosque-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bere Area, Ibadan, Oyo State</span>
+                    </div>
+                    
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+234 801 234 5678</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>bere@jwm.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Imam Abdulrahman Yusuf</span>
+                        </div>
+                    </div>
+                    
+                    <div class="prayer-timings">
+                        <div class="prayer-header">
+                            <div class="prayer-title">
+                                <i class="fas fa-clock"></i>
+                                <span>Prayer Times</span>
+                            </div>
+                            <div class="prayer-date" id="currentDate1"></div>
+                        </div>
+                        <div class="timings-grid">
+                            <div class="prayer-time">
+                                <span>Fajr</span>
+                                <div>5:15 AM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Sunrise</span>
+                                <div>6:30 AM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Dhuhr</span>
+                                <div>1:15 PM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Asr</span>
+                                <div>4:30 PM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Maghrib</span>
+                                <div>6:35 PM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Isha</span>
+                                <div>7:50 PM</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+                            <strong>Jumu'ah Prayer:</strong> 1:15 PM
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lasisi Taiwo Plaza Mosque -->
+            <div class="mosque-card" data-mosque-id="2" data-lat="7.3962" data-lng="3.9165">
+                <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Lasisi Taiwo Plaza Mosque" class="mosque-image">
+                <div class="mosque-content">
+                    <h3 class="mosque-title">Lasisi Taiwo Plaza Mosque</h3>
+                    <div class="mosque-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Boluwaji Area, Ibadan, Oyo State</span>
+                    </div>
+                    
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+234 802 345 6789</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>boluwaji@jwm.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Imam Muhammad Kabir</span>
+                        </div>
+                    </div>
+                    
+                    <div class="prayer-timings">
+                        <div class="prayer-header">
+                            <div class="prayer-title">
+                                <i class="fas fa-clock"></i>
+                                <span>Prayer Times</span>
+                            </div>
+                            <div class="prayer-date" id="currentDate2"></div>
+                        </div>
+                        <div class="timings-grid">
+                            <div class="prayer-time">
+                                <span>Fajr</span>
+                                <div>5:20 AM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Sunrise</span>
+                                <div>6:35 AM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Dhuhr</span>
+                                <div>1:20 PM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Asr</span>
+                                <div>4:35 PM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Maghrib</span>
+                                <div>6:40 PM</div>
+                            </div>
+                            <div class="prayer-time">
+                                <span>Isha</span>
+                                <div>7:55 PM</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+                            <strong>Jumu'ah Prayer:</strong> 1:20 PM
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2 class="section-title">Locations in Ibadan</h2>
+            <p>Find directions to our mosques using the interactive map below</p>
+            
+            <div class="map-container">
+                <div id="mosqueMap"></div>
+                <div class="map-controls">
+                    <button id="zoomBere">Bere Mosque</button>
+                    <button id="zoomBoluwaji">Boluwaji Mosque</button>
+                    <button id="zoomBoth">View Both</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map centered on Ibadan
+        const map = L.map('mosqueMap').setView([7.3866, 3.9315], 12);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Custom mosque icon
+        const mosqueIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/619/619032.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        // Mosque data for Ibadan
+        const mosques = [
+            {
+                id: 1,
+                name: "Bere Ibadan Revival Mosque",
+                lat: 7.3775,
+                lng: 3.9470,
+                address: "Bere Area, Ibadan, Oyo State",
+                phone: "+234 801 234 5678",
+                imam: "Imam Abdulrahman Yusuf"
+            },
+            {
+                id: 2,
+                name: "Lasisi Taiwo Plaza Mosque",
+                lat: 7.3962,
+                lng: 3.9165,
+                address: "Boluwaji Area, Ibadan, Oyo State",
+                phone: "+234 802 345 6789",
+                imam: "Imam Muhammad Kabir"
+            }
+        ];
+
+        // Add markers to map
+        const markers = [];
+        mosques.forEach(mosque => {
+            const marker = L.marker([mosque.lat, mosque.lng], { icon: mosqueIcon })
+                .addTo(map)
+                .bindPopup(`
+                    <b>${mosque.name}</b><br>
+                    <i class="fas fa-map-marker-alt"></i> ${mosque.address}<br>
+                    <i class="fas fa-phone"></i> ${mosque.phone}<br>
+                    <i class="fas fa-user-tie"></i> ${mosque.imam}
+                `);
+            
+            marker.mosqueId = mosque.id;
+            markers.push(marker);
+        });
+
+        // Zoom functions
+        document.getElementById('zoomBere').addEventListener('click', () => {
+            map.flyTo([mosques[0].lat, mosques[0].lng], 15);
+            markers[0].openPopup();
+            highlightMosqueCard(1);
+        });
+
+        document.getElementById('zoomBoluwaji').addEventListener('click', () => {
+            map.flyTo([mosques[1].lat, mosques[1].lng], 15);
+            markers[1].openPopup();
+            highlightMosqueCard(2);
+        });
+
+        document.getElementById('zoomBoth').addEventListener('click', () => {
+            const group = new L.featureGroup(markers);
+            map.fitBounds(group.getBounds().pad(0.2));
+        });
+
+        // Highlight mosque card when marker is clicked
+        function highlightMosqueCard(id) {
+            document.querySelectorAll('.mosque-card').forEach(card => {
+                card.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
+                if (parseInt(card.dataset.mosqueId) === id) {
+                    card.style.boxShadow = '0 0 0 3px var(--primary)';
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        }
+
+        markers.forEach(marker => {
+            marker.on('click', function() {
+                highlightMosqueCard(this.mosqueId);
+            });
+        });
+
+        // Highlight marker when mosque card is hovered
+        document.querySelectorAll('.mosque-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const mosqueId = parseInt(this.dataset.mosqueId);
+                markers.forEach(marker => {
+                    if (marker.mosqueId === mosqueId) {
+                        marker.openPopup();
+                    }
+                });
+            });
+        });
+
+        // Update prayer dates
+        function updatePrayerDates() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date();
+            const dateString = today.toLocaleDateString('en-US', options);
+            
+            document.querySelectorAll('.prayer-date').forEach(el => {
+                el.textContent = dateString;
+            });
+        }
+
+        updatePrayerDates();
+    </script>
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Registration | Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --border: #e0e0e0;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .register-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .register-logo {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .register-header h1 {
+            color: var(--primary);
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Card */
+        .register-card {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            background: var(--primary-light);
+            padding: 1.5rem 2rem;
+        }
+
+        .step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .step.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .active .step-number {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 60%;
+            right: -40%;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        /* Form Sections */
+        .form-section {
+            padding: 2.5rem;
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-label.required:after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-container {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .preview-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-light);
+            display: none;
+        }
+
+        /* Checkbox/Radio */
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-check-input {
+            margin-right: 0.75rem;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #07482b;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .progress-steps {
+                padding: 1rem;
+            }
+            .step-name {
+                display: none;
+            }
+            .form-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register-header">
+            <img src="Logo Maker 2025_04_10_01_33_00.png" alt="Logo" class="register-logo">
+            <h1>Join Our Community</h1>
+            <p>Register to become an official member of Jamatul Wahadatul Muslimeen and access exclusive benefits</p>
+        </div>
+
+        <div class="register-card">
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-name">Personal</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-name">Contact</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-name">Islamic</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-name">Review</div>
+                </div>
+            </div>
+
+            <!-- Multi-step Form -->
+            <form id="registrationForm">
+                <!-- Step 1: Personal Information -->
+                <div class="form-section active" id="step1">
+                    <h2 class="section-title">Personal Information</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Profile Photo</label>
+                        <div class="file-upload" id="profileUpload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p>Click to upload your photo</p>
+                            <p><small>JPG or PNG (Max 2MB)</small></p>
+                            <input type="file" id="profilePic" name="profilePic" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="preview-container">
+                            <img id="previewImage" class="preview-image" src="#" alt="Profile Preview">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName" class="form-label required">Full Legal Name</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="arabicName" class="form-label">Arabic Name</label>
+                            <input type="text" id="arabicName" name="arabicName" class="form-control" dir="rtl">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="dob" class="form-label required">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age" class="form-label required">Age</label>
+                            <input type="number" id="age" name="age" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="form-label required">Gender</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline" disabled>Previous</button>
+                        <button type="button" class="btn btn-primary next-btn" data-next="2">Next: Contact Info</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Contact Information -->
+                <div class="form-section" id="step2">
+                    <h2 class="section-title">Contact Information</h2>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="phone" class="form-label required">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label required">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="form-label required">Full Address</label>
+                        <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="city" class="form-label required">City</label>
+                            <input type="text" id="city" name="city" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state" class="form-label required">State</label>
+                            <input type="text" id="state" name="state" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country" class="form-label required">Country</label>
+                            <input type="text" id="country" name="country" class="form-control" value="Nigeria" required>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline prev-btn" data-prev="1">Previous</button>
+                        <button type="button" class="btn btn-primary next-btn" data-next="3">Next: Islamic Info</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Islamic Information -->
+                <div class="form-section" id="step3">
+                    <h2 class="section-title">Islamic Information</h2>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="shahadaDate" class="form-label">Date of Shahada (If Convert)</label>
+                            <input type="date" id="shahadaDate" name="shahadaDate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="madhab" class="form-label">Madhab (School of Thought)</label>
+                            <select id="madhab" name="madhab" class="form-control">
+                                <option value="">Select if applicable</option>
+                                <option value="hanafi">Hanafi</option>
+                                <option value="maliki">Maliki</option>
+                                <option value="shafi">Shafi'i</option>
+                                <option value="hanbali">Hanbali</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quranMemorization" class="form-label">Quran Memorization Level</label>
+                        <select id="quranMemorization" name="quranMemorization" class="form-control">
+                            <option value="">Select your level</option>
+                            <option value="none">Not Memorized</option>
+                            <option value="partial">Partial Memorization</option>
+                            <option value="juz1-5">1-5 Juz</option>
+                            <option value="juz6-10">6-10 Juz</option>
+                            <option value="half">Half Quran</option>
+                            <option value="full">Full Quran (Hafiz)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Volunteer Interests</label>
+                        <div class="form-check">
+                            <input type="checkbox" id="interestDawah" name="interests" value="dawah" class="form-check-input">
+                            <label for="interestDawah">Dawah Work</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interestTeaching" name="interests" value="teaching" class="form-check-input">
+                            <label for="interestTeaching">Islamic Teaching</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interestYouth" name="interests" value="youth" class="form-check-input">
+                            <label for="interestYouth">Youth Programs</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="interestMedia" name="interests" value="media" class="form-check-input">
+                            <label for="interestMedia">Media & Design</label>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline prev-btn" data-prev="2">Previous</button>
+                        <button type="button" class="btn btn-primary next-btn" data-next="4">Next: Review</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review & Submit -->
+                <div class="form-section" id="step4">
+                    <h2 class="section-title">Review Your Information</h2>
+                    
+                    <div class="review-section" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Personal Details</h3>
+                        <div id="reviewPersonal"></div>
+                    </div>
+
+                    <div class="review-section" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Contact Information</h3>
+                        <div id="reviewContact"></div>
+                    </div>
+
+                    <div class="review-section" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Islamic Information</h3>
+                        <div id="reviewIslamic"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="agreement" name="agreement" class="form-check-input" required>
+                            <label for="agreement" class="form-label">I declare that all information provided is accurate and agree to the organization's terms</label>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline prev-btn" data-prev="3">Previous</button>
+                        <button type="submit" class="btn btn-primary">Submit Registration</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <script>
+        // DOM Elements
+        const form = document.getElementById('registrationForm');
+        const steps = document.querySelectorAll('.step');
+        const formSections = document.querySelectorAll('.form-section');
+        const nextBtns = document.querySelectorAll('.next-btn');
+        const prevBtns = document.querySelectorAll('.prev-btn');
+
+        // Profile Picture Upload
+        const profileUpload = document.getElementById('profileUpload');
+        const profilePic = document.getElementById('profilePic');
+        const previewImage = document.getElementById('previewImage');
+
+        profileUpload.addEventListener('click', () => profilePic.click());
+
+        profilePic.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.style.display = 'block';
+                    previewImage.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Age Calculation
+        document.getElementById('dob').addEventListener('change', function() {
+            const dob = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            document.getElementById('age').value = age;
+        });
+
+        // Form Navigation
+        nextBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const currentSection = this.closest('.form-section');
+                const nextStep = this.dataset.next;
+
+                // Validate current section before proceeding
+                if (validateSection(currentSection.id)) {
+                    // Update progress steps
+                    steps.forEach(step => {
+                        if (parseInt(step.dataset.step) <= parseInt(nextStep)) {
+                            step.classList.add('active');
+                        } else {
+                            step.classList.remove('active');
+                        }
+                    });
+
+                    // Switch sections
+                    formSections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(`step${nextStep}`).classList.add('active');
+
+                    // Update review if on last step
+                    if (nextStep === '4') {
+                        updateReview();
+                    }
+
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        prevBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const prevStep = this.dataset.prev;
+
+                // Update progress steps
+                steps.forEach(step => {
+                    if (parseInt(step.dataset.step) > parseInt(prevStep)) {
+                        step.classList.remove('active');
+                    }
+                });
+
+                // Switch sections
+                formSections.forEach(section => section.classList.remove('active'));
+                document.getElementById(`step${prevStep}`).classList.add('active');
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Form Validation
+        function validateSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const inputs = section.querySelectorAll('[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    input.style.borderColor = '#e74c3c';
+                    isValid = false;
+
+                    // Add error message
+                    if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-msg')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.textContent = 'This field is required';
+                        errorMsg.style.color = '#e74c3c';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.25rem';
+                        errorMsg.style.fontSize = '0.8rem';
+                        errorMsg.classList.add('error-msg');
+                        input.parentNode.insertBefore(errorMsg, input.nextSibling);
+                    }
+                } else {
+                    input.style.borderColor = '#e0e0e0';
+
+                    // Remove error message if exists
+                    if (input.nextElementSibling && input.nextElementSibling.classList.contains('error-msg')) {
+                        input.nextElementSibling.remove();
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // Update Review Section
+        function updateReview() {
+            // Personal Info
+            document.getElementById('reviewPersonal').innerHTML = `
+                <p><strong>Name:</strong> ${document.getElementById('fullName').value}</p>
+                <p><strong>Arabic Name:</strong> ${document.getElementById('arabicName').value || 'Not provided'}</p>
+                <p><strong>Date of Birth:</strong> ${document.getElementById('dob').value}</p>
+                <p><strong>Age:</strong> ${document.getElementById('age').value}</p>
+                <p><strong>Gender:</strong> ${document.getElementById('gender').value}</p>
+            `;
+
+            // Contact Info
+            document.getElementById('reviewContact').innerHTML = `
+                <p><strong>Phone:</strong> ${document.getElementById('phone').value}</p>
+                <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+                <p><strong>Address:</strong> ${document.getElementById('address').value}</p>
+                <p><strong>City/State:</strong> ${document.getElementById('city').value}, ${document.getElementById('state').value}</p>
+                <p><strong>Country:</strong> ${document.getElementById('country').value}</p>
+            `;
+
+            // Islamic Info
+            const shahada = document.getElementById('shahadaDate').value || 'Not applicable';
+            const madhab = document.getElementById('madhab').value || 'Not specified';
+            const quran = document.getElementById('quranMemorization').value || 'Not specified';
+            const interests = Array.from(document.querySelectorAll('input[name="interests"]:checked'))
+                                   .map(cb => cb.value).join(', ') || 'None';
+
+            document.getElementById('reviewIslamic').innerHTML = `
+                <p><strong>Shahada Date:</strong> ${shahada}</p>
+                <p><strong>Madhab:</strong> ${madhab}</p>
+                <p><strong>Quran Memorization:</strong> ${quran}</p>
+                <p><strong>Volunteer Interests:</strong> ${interests}</p>
+            `;
+        }
+
+        // Form Submission (Frontend - Using Firebase JS SDK)
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate final section and agreement
+            if (validateSection('step4') && document.getElementById('agreement').checked) {
+                // Get all form data
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    arabicName: document.getElementById('arabicName').value,
+                    dob: document.getElementById('dob').value,
+                    age: document.getElementById('age').value,
+                    gender: document.getElementById('gender').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    country: document.getElementById('country').value,
+                    shahadaDate: document.getElementById('shahadaDate').value,
+                    madhab: document.getElementById('madhab').value,
+                    quranMemorization: document.getElementById('quranMemorization').value,
+                    interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value),
+                    // You'd need to handle profilePic upload to Firebase Storage separately
+                    // and then store the download URL here.
+                    profilePicUrl: previewImage.src === '#' ? null : previewImage.src,
+                    agreement: document.getElementById('agreement').checked,
+                    registrationDate: new Date().toISOString()
+                };
+
+                // --- FIREBASE JAVASCRIPT SDK INTEGRATION ---
+                // Replace with your actual Firebase configuration
+                const firebaseConfig = {
+                    apiKey: "AIzaSyAS5mDcQ0xp0WvqnMF0M-Q8YzJncfmcr7k",
+  authDomain: "jamah-6f3c2.firebaseapp.com",
+  databaseURL: "https://jamah-6f3c2-default-rtdb.firebaseio.com",
+  projectId: "jamah-6f3c2",
+  storageBucket: "jamah-6f3c2.firebasestorage.app",
+  messagingSenderId: "698012525722",
+  appId: "1:698012525722:web:677b1cd35b172d64e6eb23"
+                };
+
+                // Initialize Firebase (if not already initialized elsewhere)
+                const app = firebase.initializeApp(firebaseConfig);
+                const database = firebase.database();
+
+                // Save data to Firebase Realtime Database
+                database.ref('registrations').push(formData)
+                    .then(() => {
+                        alert('Registration submitted successfully! We will contact you soon.');
+                        form.reset();
+                        previewImage.style.display = 'none';
+                        // Reset form to first step
+                        steps.forEach((step, index) => step.classList.toggle('active', index === 0));
+                        formSections.forEach((section, index) => section.classList.toggle('active', index === 0));
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    })
+                    .catch((error) => {
+                        console.error("Error saving data to Firebase:", error);
+                        alert('An error occurred while submitting your registration. Please try again later.');
+                    });
+                // --- END FIREBASE JAVASCRIPT SDK INTEGRATION ---
+
+            } else if (!document.getElementById('agreement').checked) {
+                alert('Please agree to the terms and conditions');
+            }
+        });
+    </script>
+</body>
+</html>

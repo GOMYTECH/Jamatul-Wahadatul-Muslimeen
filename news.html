@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .news-header {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .news-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .news-header p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .news-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+            gap: 0.5rem;
+        }
+
+        .page-link {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .page-link.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="Logo Maker 2025_04_10_01_33_00.png" class="logo">JWM</a>
+
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="news-header">
+            <h1>Latest News & Updates</h1>
+            <p>Stay informed about our activities, events, and Islamic programs</p>
+        </div>
+
+        <div class="news-grid" id="newsContainer">
+            <!-- News items will be loaded here dynamically -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1564121211835-e88c852648ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="News Image">
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Event</span>
+                    <h3 class="news-title">Annual Islamic Conference 2023</h3>
+                    <p class="news-excerpt">Join us for our biggest event of the year featuring renowned scholars from around the world discussing contemporary Islamic issues.</p>
+                    <div class="news-meta">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> 15 Nov 2023</span>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More news items... -->
+        </div>
+
+        <div class="pagination">
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <!-- Footer content -->
+        </div>
+    </footer>
+
+    <script>
+        // In a real implementation, this would fetch news from your backend API
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/news')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('newsContainer');
+                    container.innerHTML = ''; // Clear loading content
+                    
+                    data.forEach(newsItem => {
+                        const newsCard = document.createElement('div');
+                        newsCard.className = 'news-card';
+                        newsCard.innerHTML = `
+                            <div class="news-image">
+                                <img src="${newsItem.image}" alt="${newsItem.title}">
+                            </div>
+                            <div class="news-content">
+                                <span class="news-category">${newsItem.category}</span>
+                                <h3 class="news-title">${newsItem.title}</h3>
+                                <p class="news-excerpt">${newsItem.excerpt}</p>
+                                <div class="news-meta">
+                                    <span class="news-date"><i class="far fa-calendar-alt"></i> ${newsItem.date}</span>
+                                    <a href="/news/${newsItem.id}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(newsCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading news:', error);
+                });
+        });
+    </script>
+</body>
+</html>

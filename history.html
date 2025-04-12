@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --border: #e0e0e0;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-logo {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* History Section */
+        .history-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 2rem;
+        }
+
+        .history-timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 7px;
+            height: 100%;
+            width: 2px;
+            background: var(--primary-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content {
+            padding-left: 1.5rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Mission Section */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mission-card {
+            background: var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .mission-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-card h3 i {
+            margin-right: 0.75rem;
+            color: var(--secondary);
+        }
+
+        /* Beliefs Section */
+        .beliefs-list {
+            columns: 2;
+            column-gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .belief-item {
+            display: flex;
+            margin-bottom: 1rem;
+            break-inside: avoid;
+        }
+
+        .belief-icon {
+            color: var(--primary);
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Leadership Section */
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .leader-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .leader-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .leader-info {
+            padding: 1.5rem;
+        }
+
+        .leader-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .leader-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .beliefs-list {
+                columns: 1;
+            }
+            
+            .content-card {
+                padding: 1.5rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <img src="Logo Maker 2025_04_10_01_33_00.png" alt="Logo" class="page-logo">
+            <h1>About Jamatul Wahadatul Muslimeen</h1>
+            <p>Discover our history, mission, and the principles that guide our Islamic organization</p>
+        </div>
+
+        <!-- History Section -->
+        <div class="content-card">
+            <h2 class="section-title">Our History</h2>
+            <p>Jamatul Wahadatul Muslimeen (JWM) was established in 1995 by a group of dedicated Muslim brothers who shared a common vision of Islamic unity and community development.</p>
+            
+            <div class="history-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1995</div>
+                    <div class="timeline-content">
+                        <h3>Foundation</h3>
+                        <p>Founded by Amir Taiwo Lasisi and a group of brothers to promote Islamic unity and education in Nigeria.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2001</div>
+                    <div class="timeline-content">
+                        <h3>First Islamic Center</h3>
+                        <p>Established our first permanent Islamic center for prayers, education, and community gatherings.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2008</div>
+                    <div class="timeline-content">
+                        <h3>Youth Programs</h3>
+                        <p>Launched comprehensive youth development programs to engage young Muslims.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">
+                        <h3>Expansion</h3>
+                        <p>Expanded operations to multiple states  online with new community projects.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h3>Current Status</h3>
+                        <p>Now serving communities across Nigeria with educational, charitable, and dawah programs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="content-card">
+            <h2 class="section-title">Mission & Vision</h2>
+            
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                    <p>To promote the teachings of Islam, encourage unity among Muslims, and engage in community development through education, charity, and advocacy based on Quran and Sunnah.</p>
+                </div>
+                
+                <div class="mission-card">
+                    <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                    <p>To be a leading Islamic organization that fosters spiritual growth, social harmony, and sustainable development while maintaining Islamic values and principles.</p>
+                </div>
+                
+                <div class="mission-card">
+                    <h3><i class="fas fa-hands-helping"></i> Our Values</h3>
+                    <p>Unity, Justice, Knowledge, Service, and Peaceful Coexistence guide all our activities and decisions.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beliefs Section -->
+        <div class="content-card">
+            <h2 class="section-title">Core Beliefs & Principles</h2>
+            <p>Our organization is founded on these fundamental Islamic principles:</p>
+            
+            <div class="beliefs-list">
+                <div class="belief-item">
+                    <div class="belief-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <strong>Tawheed (Oneness of Allah)</strong>
+                        <p>Upholding the absolute oneness of God as the foundation of Islamic belief.</p>
+                    </div>
+                </div>
+                
+                <div class="belief-item">
+                    <div class="belief-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <strong>Unity of the Ummah</strong>
+                        <p>Promoting brotherhood among Muslims beyond ethnic or sectarian differences.</p>
+                    </div>
+                </div>
+                
+                <div class="belief-item">
+                    <div class="belief-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <strong>Quran & Sunnah</strong>
+                        <p>Following the Quran and authentic teachings of Prophet Muhammad (PBUH).</p>
+                    </div>
+                </div>
+                
+                <div class="belief-item">
+                    <div class="belief-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <strong>Justice & Equity</strong>
+                        <p>Advocating for fairness and justice in all aspects of society.</p>
+                    </div>
+                </div>
+                
+                <div class="belief-item">
+                    <div class="belief-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <strong>Education</strong>
+                        <p>Prioritizing Islamic and secular knowledge for personal and community development.</p>
+                    </div>
+                </div>
+                
+                <div class="belief-item">
+                    <div class="belief-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <strong>Service to Humanity</strong>
+                        <p>Serving all people regardless of faith through charitable works.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Structure Section -->
+        <div class="content-card">
+            <h2 class="section-title">Organizational Structure</h2>
+            <p>Jamatul Wahadatul Muslimeen operates with a clear leadership structure to ensure effective administration:</p>
+            
+            <div style="margin-top: 2rem; background: var(--primary-light); padding: 1.5rem; border-radius: 8px;">
+                <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); width: 200px;">
+                        <div style="font-weight: 600; color: var(--primary);">Amir</div>
+                        <div style="font-size: 0.9rem;">Overall Leadership</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem;">
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); width: 160px;">
+                        <div style="font-weight: 600; color: var(--primary);">Shura Council</div>
+                        <div style="font-size: 0.9rem;">Advisory Body</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); width: 160px;">
+                        <div style="font-weight: 600; color: var(--primary);">Da'wah</div>
+                        <div style="font-size: 0.9rem;">Outreach Programs</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); width: 160px;">
+                        <div style="font-weight: 600; color: var(--primary);">Education</div>
+                        <div style="font-size: 0.9rem;">Islamic Studies</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); width: 160px;">
+                        <div style="font-weight: 600; color: var(--primary);">Welfare</div>
+                        <div style="font-size: 0.9rem;">Charity Services</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leadership Section -->
+        <div class="content-card">
+            <h2 class="section-title">Our Leaders</h2>
+            <p>Meet the dedicated individuals guiding Jamatul Wahadatul Muslimeen</p>
+            
+            <div class="leaders-grid">
+                <div class="leader-card">
+                    <img src="https://via.placeholder.com/300x300?text=Amir" alt="Amir Taiwo Lasisi" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Amir Taiwo Lasisi</h3>
+                        <p>Founder & Spiritual Leader</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Leading the organization since its inception in 1995 with wisdom and dedication.</p>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <img src="https://via.placeholder.com/300x300?text=Deputy" alt="Deputy Amir" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Sheikh Ibrahim Adekunle</h3>
+                        <p>Deputy Amir</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Oversees daily operations and community programs.</p>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <img src="https://via.placeholder.com/300x300?text=Education" alt="Education Director" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Ustadha Aisha Mohammed</h3>
+                        <p>Director of Education</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Leads our Islamic education and youth programs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation for timeline items
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            timelineItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                item.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                observer.observe(item);
+            });
+            
+            // Leader card hover effect
+            const leaderCards = document.querySelectorAll('.leader-card');
+            leaderCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

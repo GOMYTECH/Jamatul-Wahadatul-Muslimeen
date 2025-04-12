@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Rights & Obligations | Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --border: #e0e0e0;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-logo {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Rights & Obligations Sections */
+        .rights-section, .obligations-section {
+            margin-bottom: 3rem;
+        }
+
+        .rights-grid, .obligations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .right-card, .obligation-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .right-card {
+            border-left-color: var(--secondary);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-header i {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .right-card .card-header i {
+            background: rgba(248, 178, 41, 0.1);
+            color: var(--secondary);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .right-card .card-title {
+            color: var(--secondary);
+        }
+
+        /* Program Requirements */
+        .programs-section {
+            background: var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .program-list {
+            margin-top: 1rem;
+        }
+
+        .program-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .program-item i {
+            color: var(--primary);
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Fee Structure */
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .fee-table th, .fee-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .fee-table th {
+            background: var(--primary);
+            color: white;
+        }
+
+        .fee-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-card {
+                padding: 1.5rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .rights-grid, .obligations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fee-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <img src="Logo Maker 2025_04_10_01_33_00.png" alt="Logo" class="page-logo">
+            <h1>Membership Rights & Obligations</h1>
+            <p>Understand your privileges and responsibilities as a member of Jamatul Wahadatul Muslimeen</p>
+        </div>
+
+        <div class="content-card">
+            <!-- Membership Rights -->
+            <div class="rights-section">
+                <h2 class="section-title">Member Rights</h2>
+                <p>As a registered member of JWM, you are entitled to the following privileges:</p>
+                
+                <div class="rights-grid">
+                    <div class="right-card">
+                        <div class="card-header">
+                            <i class="fas fa-mosque"></i>
+                            <h3 class="card-title">Spiritual Guidance</h3>
+                        </div>
+                        <p>Access to qualified Islamic scholars and regular tafseer sessions for personal and family spiritual development.</p>
+                    </div>
+                    
+                    <div class="right-card">
+                        <div class="card-header">
+                            <i class="fas fa-book-quran"></i>
+                            <h3 class="card-title">Educational Programs</h3>
+                        </div>
+                        <p>Free or subsidized access to all educational programs including Quran classes, Arabic courses, and Islamic studies.</p>
+                    </div>
+                    
+                    <div class="right-card">
+                        <div class="card-header">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <h3 class="card-title">Social Support</h3>
+                        </div>
+                        <p>Eligibility for zakat and sadaqah funds when in need, marriage counseling, and family support services.</p>
+                    </div>
+                    
+                    <div class="right-card">
+                        <div class="card-header">
+                            <i class="fas fa-vote-yea"></i>
+                            <h3 class="card-title">Voting Rights</h3>
+                        </div>
+                        <p>Right to vote in organizational elections after 1 year of active membership and participation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membership Obligations -->
+            <div class="obligations-section">
+                <h2 class="section-title">Member Obligations</h2>
+                <p>All members are required to fulfill these responsibilities to maintain active membership status:</p>
+                
+                <div class="obligations-grid">
+                    <div class="obligation-card">
+                        <div class="card-header">
+                            <i class="fas fa-calendar-check"></i>
+                            <h3 class="card-title">Program Attendance</h3>
+                        </div>
+                        <p>Mandatory attendance at key programs including Sunday lectures, yearly seminars, and Ramadan activities.</p>
+                    </div>
+                    
+                    <div class="obligation-card">
+                        <div class="card-header">
+                            <i class="fas fa-users"></i>
+                            <h3 class="card-title">Youth Participation</h3>
+                        </div>
+                        <p>Members aged 15-35 are automatically enrolled in Tahfiz Youth Group and must participate in at least 70% of activities.</p>
+                    </div>
+                    
+                    <div class="obligation-card">
+                        <div class="card-header">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <h3 class="card-title">Financial Commitment</h3>
+                        </div>
+                        <p>Timely payment of all obligatory donations including monthly sadaqah and special program fees as determined by the Amir.</p>
+                    </div>
+                    
+                    <div class="obligation-card">
+                        <div class="card-header">
+                            <i class="fas fa-tasks"></i>
+                            <h3 class="card-title">Event Participation</h3>
+                        </div>
+                        <p>Active involvement in at least 3 organizational events annually, with assigned duties to be completed satisfactorily.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Required Programs -->
+            <div class="programs-section">
+                <h3 style="color: var(--primary);">Mandatory Programs Attendance</h3>
+                <p>All members must attend these core programs annually (minimum 80% attendance):</p>
+                
+                <div class="program-list">
+                    <div class="program-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Weekly Sunday Program</strong>
+                            <p>Every Sunday 9am-12pm - Islamic lectures and group discussions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Annual 3-Day Seminar</strong>
+                            <p>Held every November - Intensive Islamic training and workshops</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Ramadan Programs</strong>
+                            <p>Daily tafsir sessions and weekend iftar gatherings during Ramadan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Quarterly Members Meeting</strong>
+                            <p>Organizational updates and planning sessions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fee Structure -->
+            <div class="fee-section">
+                <h2 class="section-title">Financial Obligations</h2>
+                <p>All members are required to fulfill these financial commitments:</p>
+                
+                <table class="fee-table">
+                    <thead>
+                        <tr>
+                            <th>Contribution Type</th>
+                            <th>Amount/Frequency</th>
+                            <th>Due Date</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monthly Sadaqah</td>
+                            <td>₦5,000 minimum</td>
+                            <td>1st week monthly</td>
+                            <td>Adjustable based on capacity</td>
+                        </tr>
+                        <tr>
+                            <td>Annual Membership Fee</td>
+                            <td>₦10,000</td>
+                            <td>January 31st</td>
+                            <td>Covers administrative costs</td>
+                        </tr>
+                        <tr>
+                            <td>Ramadan Donation</td>
+                            <td>₦7,500</td>
+                            <td>1st Ramadan</td>
+                            <td>For iftar and Ramadan programs</td>
+                        </tr>
+                        <tr>
+                            <td>Seminar Fee</td>
+                            <td>₦15,000</td>
+                            <td>October 15th</td>
+                            <td>Includes materials and meals</td>
+                        </tr>
+                        <tr>
+                            <td>Special Projects</td>
+                            <td>As announced</td>
+                            <td>Variable</td>
+                            <td>Mosque maintenance, outreach etc.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                    <i class="fas fa-info-circle" style="color: var(--primary);"></i> Financial hardship exemptions available upon written request to the Amir.
+                </p>
+            </div>
+
+            <!-- Membership Agreement -->
+            <div style="margin-top: 3rem; padding: 1.5rem; background: var(--primary-light); border-radius: 8px;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">Membership Agreement</h3>
+                <p>By maintaining membership with Jamatul Wahadatul Muslimeen, I agree to:</p>
+                <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                    <li>Fulfill all religious and organizational obligations</li>
+                    <li>Maintain good conduct representing Islamic values</li>
+                    <li>Attend required programs regularly</li>
+                    <li>Meet all financial commitments promptly</li>
+                    <li>Follow the guidance of the Amir in organizational matters</li>
+                </ul>
+                <p style="margin-top: 1rem; font-weight: 600;">Membership may be reviewed annually based on fulfillment of these obligations.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

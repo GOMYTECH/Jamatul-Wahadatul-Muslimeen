@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revival Schools | Jamatul Wahadatul Muslimeen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: rgba(10, 92, 54, 0.1);
+            --secondary: #f8b229;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --border: #e0e0e0;
+            --text-light: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-logo {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Schools Grid */
+        .schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .school-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .school-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .school-content {
+            padding: 1.5rem;
+        }
+
+        .school-title {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        .school-location {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .school-location i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+            margin-top: 0.2rem;
+        }
+
+        .school-features {
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-item i {
+            color: var(--secondary);
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+        }
+
+        .school-contact {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            width: 20px;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .school-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .school-btn:hover {
+            background: #07482b;
+        }
+
+        /* Fee Structure */
+        .fee-section {
+            margin-top: 3rem;
+            background: var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .fee-table th, .fee-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .fee-table th {
+            background: var(--primary);
+            color: white;
+        }
+
+        .fee-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-card {
+                padding: 1.5rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .schools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fee-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <img src="Logo Maker 2025_04_10_01_33_00.png" alt="Logo" class="page-logo">
+            <h1>Wahadatul Muslimeen Revival Schools</h1>
+            <p>Quality Islamic and Western education at affordable rates for the Muslim community</p>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">Our School Branches</h2>
+            <p>We operate two branches in Ibadan providing excellent academic and Islamic education from primary through secondary levels.</p>
+            
+            <div class="schools-grid">
+                <!-- Bere Branch -->
+                <div class="school-card">
+                    <img src="data:image/jpeg;base64,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" alt="Bere Branch" class="school-image">
+                    <div class="school-content">
+                        <h3 class="school-title">Bere Revival School</h3>
+                        <div class="school-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Beside Adelagun School, Bere, Ibadan, Oyo State</span>
+                        </div>
+                        
+                        <div class="school-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Classes Offered:</strong> Primary 1 - JSS 3
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Islamic Curriculum:</strong> Quran Memorization, Arabic, Islamic Studies
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Facilities:</strong> Library, Computer Lab, Playground
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="school-contact">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+234 803 123 4567</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Head Teacher: Ustadh Ibrahim Adekunle</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="school-btn">Enquire About Admission</a>
+                    </div>
+                </div>
+                
+                <!-- Asukuna Branch -->
+                <div class="school-card">
+                    <img src='data:image/jpeg;base64,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'alt="Asukuna Branch" class="school-image">
+                    <div class="school-content">
+                        <h3 class="school-title">Asukuna Revival School</h3>
+                        <div class="school-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Asukuna Area, Ibadan, Oyo State</span>
+                        </div>
+                        
+                        <div class="school-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Classes Offered:</strong> Creche - Primary 6
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Islamic Curriculum:</strong> Quran Recitation, Islamic Manners, Duas
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Facilities:</strong> Spacious Classrooms, Play Area, Sick Bay
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="school-contact">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+234 802 987 6543</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Head Teacher: Ustadha Aisha Mohammed</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="school-btn">Enquire About Admission</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fee Structure -->
+            <div class="fee-section">
+                <h2 class="section-title">Affordable Fee Structure</h2>
+                <p>Our schools are committed to providing quality education at minimal costs to the Muslim community:</p>
+                
+                <table class="fee-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Registration Fee</th>
+                            <th>Termly Fee</th>
+                            <th>Uniform</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Creche/Nursery</td>
+                            <td>₦5,000</td>
+                            <td>₦15,000</td>
+                            <td>₦8,000</td>
+                        </tr>
+                        <tr>
+                            <td>Primary 1-3</td>
+                            <td>₦5,000</td>
+                            <td>₦18,000</td>
+                            <td>₦10,000</td>
+                        </tr>
+                        <tr>
+                            <td>Primary 4-6</td>
+                            <td>₦7,000</td>
+                            <td>₦20,000</td>
+                            <td>₦10,000</td>
+                        </tr>
+                        <tr>
+                            <td>JSS 1-3</td>
+                            <td>₦10,000</td>
+                            <td>₦25,000</td>
+                            <td>₦12,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                    <i class="fas fa-info-circle" style="color: var(--primary);"></i> Discounts available for multiple children from same family (10% for 2nd child, 15% for 3rd+ children)
+                </p>
+            </div>
+            
+            <!-- School Features -->
+            <div style="margin-top: 3rem;">
+                <h2 class="section-title">Why Choose Our Schools?</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-quran"></i>
+                        </div>
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Strong Islamic Foundation</h3>
+                        <p style="color: var(--text-light);">Daily Quran classes, salah practice, and Islamic character development integrated with Western curriculum.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Qualified Teachers</h3>
+                        <p style="color: var(--text-light);">Certified educators with both academic qualifications and Islamic training.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Affordable Fees</h3>
+                        <p style="color: var(--text-light);">Subsidized rates to make quality education accessible to Muslim families.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Child-Friendly Environment</h3>
+                        <p style="color: var(--text-light);">Safe, nurturing spaces designed for optimal learning and Islamic upbringing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

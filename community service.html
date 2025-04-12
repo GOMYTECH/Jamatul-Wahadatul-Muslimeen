@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Service | Jamatul Wahadatul Muslimeen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+   :root {
+    --primary: #0a5c36;
+    --primary-light: rgba(10, 92, 54, 0.1);
+    --secondary: #f8b229;
+    --dark: #1a1a1a;
+    --light: #ffffff;
+    --gray: #f8f9fa;
+    --border: #e0e0e0;
+    --text-light: #6c757d;
+   }
+
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+   }
+
+   body {
+    background-color: var(--gray);
+    color: var(--dark);
+    line-height: 1.6;
+   }
+
+   .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+   }
+
+   /* Header */
+   .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+   }
+
+   .page-logo {
+    width: 100px;
+    margin-bottom: 1rem;
+   }
+
+   .page-header h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+   }
+
+   .page-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+   }
+
+   /* Content Card */
+   .content-card {
+    background: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+   }
+
+   .section-title {
+    color: var(--primary);
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.75rem;
+   }
+
+   .section-title:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+   }
+
+   /* Programs Grid */
+   .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+   }
+
+   .program-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s;
+    background: white;
+   }
+
+   .program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+   }
+
+   .program-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+   }
+
+   .program-content {
+    padding: 1.5rem;
+   }
+
+   .program-title {
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+   }
+
+   .program-description {
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+   }
+
+   .program-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+   }
+
+   .program-btn:hover {
+    background: #07482b;
+   }
+
+   /* Donation Section */
+   .donation-section {
+    background: var(--primary-light);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    text-align: center;
+   }
+
+   .donation-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+   }
+
+   .donation-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    width: 200px;
+   }
+
+   .donation-amount {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+   }
+
+   .donation-btn {
+    background: var(--secondary);
+    color: var(--dark);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.5rem;
+    width: 100%;
+   }
+
+   /* Request Assistance */
+   .assistance-section {
+    margin-top: 3rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+   }
+
+   .assistance-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+   }
+
+   .form-group {
+    margin-bottom: 1.25rem;
+   }
+
+   .form-group.full-width {
+    grid-column: span 2;
+   }
+
+   .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark);
+   }
+
+   .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+   }
+
+   .form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-light);
+   }
+
+   textarea.form-control {
+    min-height: 120px;
+   }
+
+   .submit-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    grid-column: span 2;
+    justify-self: center;
+   }
+
+   .submit-btn:hover {
+    background: #07482b;
+   }
+
+   /* Responsive */
+   @media (max-width: 768px) {
+    .content-card {
+     padding: 1.5rem;
+    }
+
+    .page-header h1 {
+     font-size: 2rem;
+    }
+
+    .assistance-form {
+     grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+     grid-column: span 1;
+    }
+
+    .donation-card {
+     width: 100%;
+    }
+   }
+  </style>
+ </head>
+ <body>
+  <div class="container">
+   <div class="page-header">
+    <img src="https://via.placeholder.com/100x100?text=JWM" alt="Logo" class="page-logo">
+    <h1>Community Service & Charity</h1>
+    <p>Serving humanity in accordance with Islamic principles of compassion and social responsibility</p>
+   </div>
+
+   <div class="content-card">
+    <h2 class="section-title">Our Charity Programs</h2>
+    <p>We run several initiatives to support those in need within our community:</p>
+
+    <div class="programs-grid">
+     <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Food Relief" class="program-image">
+      <div class="program-content">
+       <h3 class="program-title">Monthly Food Bank</h3>
+       <p class="program-description">Distribution of food packages to 200+ families each month containing rice, beans, oil, and other staples.</p>
+       <a href="donation.html" class="program-btn">Donate to Food Bank</a>
+      </div>
+     </div>
+
+     <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Orphan Support" class="program-image">
+      <div class="program-content">
+       <h3 class="program-title">Orphan Sponsorship</h3>
+       <p class="program-description">Full support for 75 orphans including education, healthcare, and monthly stipends for their guardians.</p>
+       <a href="donation.html" class="program-btn">Sponsor an Orphan</a>
+      </div>
+     </div>
+
+     <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medical Aid" class="program-image">
+      <div class="program-content">
+       <h3 class="program-title">Medical Assistance</h3>
+       <p class="program-description">Free medical camps and financial support for critical treatments and surgeries for the needy.</p>
+       <a href="donation.html" class="program-btn">Support Medical Fund</a>
+      </div>
+     </div>
+
+     <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Ramadan Iftar" class="program-image">
+      <div class="program-content">
+       <h3 class="program-title">Ramadan Iftar Program</h3>
+       <p class="program-description">Daily iftar meals served at multiple locations across the city during Ramadan.</p>
+       <a href="donation.html" class="program-btn">Sponsor Iftar Meals</a>
+      </div>
+     </div>
+
+     <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Education Support" class="program-image">
+      <div class="program-content">
+       <h3 class="program-title">Education Fund</h3>
+       <p class="program-description">Scholarships and school supplies for underprivileged Muslim children.</p>
+       <a href="donation.html" class="program-btn">Donate to Education</a>
+      </div>
+     </div>
+
+     <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Emergency Relief" class="program-image">
+      <div class="program-content">
+       <h3 class="program-title">Emergency Relief</h3>
+       <p class="program-description">Immediate assistance for families affected by disasters, accidents, or sudden hardship.</p>
+       <a href="donation.html" class="program-btn">Contribute to Relief</a>
+      </div>
+     </div>
+    </div>
+
+    <div class="donation-section">
+     <h3 style="color: var(--primary); margin-bottom: 1rem;">Make a Donation Today</h3>
+     <p>Your sadaqah and zakat can transform lives. Choose an amount to donate:</p>
+
+     <div class="donation-options">
+      <div class="donation-card">
+       <div class="donation-amount">₦5,000</div>
+       <p>Feeds a family for a week</p>
+       <a href="donation.html" class="donation-btn">Donate</a>
+      </div>
+
+      <div class="donation-card">
+       <div class="donation-amount">₦15,000</div>
+       <p>School supplies for 3 children</p>
+       <a href="donation.html" class="donation-btn">Donate</a>
+      </div>
+
+      <div class="donation-card">
+       <div class="donation-amount">₦25,000</div>
+       <p>Medical care for one patient</p>
+       <a href="donation.html" class="donation-btn">Donate</a>
+      </div>
+
+      <div class="donation-card">
+       <div class="donation-amount">₦50,000</div>
+       <p>Sponsor an orphan for a month</p>
+       <a href="donation.html" class="donation-btn">Donate</a>
+      </div>
+     </div>
+
+     <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-light);">
+      <i class="fas fa-info-circle" style="color: var(--primary);"></i> All donations are zakat-eligible and 100% of funds go directly to beneficiaries
+     </p>
+    </div>
+
+    <div class="assistance-section">
+     <h2 class="section-title">Request Assistance</h2>
+     <p>If you or someone you know needs help, please fill out this form:</p>
+
+     <form class="assistance-form" id="assistance-form">
+      <div class="form-group">
+       <label class="form-label">Full Name</label>
+       <input type="text" class="form-control" id="full-name" required>
+      </div>
+
+      <div class="form-group">
+       <label class="form-label">Phone Number</label>
+       <input type="tel" class="form-control" id="phone-number" required>
+      </div>
+
+      <div class="form-group">
+       <label class="form-label">Email Address</label>
+       <input type="email" class="form-control" id="email-address">
+      </div>
+
+      <div class="form-group">
+       <label class="form-label">Type of Assistance Needed</label>
+       <select class="form-control" id="assistance-type" required>
+        <option value="">Select...</option>
+        <option value="Food Support">Food Support</option>
+        <option value="Medical Assistance">Medical Assistance</option>
+        <option value="Education Support">Education Support</option>
+        <option value="Emergency Relief">Emergency Relief</option>
+        <option value="Other">Other</option>
+       </select>
+      </div>
+
+      <div class="form-group full-width">
+       <label class="form-label">Brief Explanation of Need</label>
+       <textarea class="form-control" id="explanation" required></textarea>
+      </div>
+
+      <div class="form-group">
+       <label class="form-label">Location</label>
+       <input type="text" class="form-control" id="location" required>
+      </div>
+
+      <div class="form-group">
+       <label class="form-label">Preferred Contact Method</label>
+       <select class="form-control" id="contact-method" required>
+        <option value="">Select...</option>
+        <option value="Phone Call">Phone Call</option>
+        <option value="WhatsApp">WhatsApp</option>
+        <option value="Email">Email</option>
+       </select>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Request</button>
+     </form>
+    </div>
+   </div>
+  </div>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAS5mDcQ0xp0WvqnMF0M-Q8YzJncfmcr7k",
+  authDomain: "jamah-6f3c2.firebaseapp.com",
+  databaseURL: "https://jamah-6f3c2-default-rtdb.firebaseio.com",
+  projectId: "jamah-6f3c2",
+  storageBucket: "jamah-6f3c2.firebasestorage.app",
+  messagingSenderId: "698012525722",
+  appId: "1:698012525722:web:119ef6c6634d2456e6eb23"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const assistanceForm = document.getElementById('assistance-form');
+
+    assistanceForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const fullName = document.getElementById('full-name').value;
+      const phoneNumber = document.getElementById('phone-number').value;
+      const emailAddress = document.getElementById('email-address').value;
+      const assistanceType = document.getElementById('assistance-type').value;
+      const explanation = document.getElementById('explanation').value;
+      const location = document.getElementById('location').value;
+      const contactMethod = document.getElementById('contact-method').value;
+
+      // Basic validation
+      if (!fullName || !phoneNumber || !assistanceType || !explanation || !location || !contactMethod) {
+        alert('Please fill in all required fields.'); // Use a better UI alert if possible
+        return;
+      }
+      if (phoneNumber.length < 10){
+        alert('Please enter a valid phone number')
+        return;
+      }
+
+      // Data object to be sent to Firebase
+      const assistanceRequest = {
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+        emailAddress: emailAddress,
+        assistanceType: assistanceType,
+        explanation: explanation,
+        location: location,
+        contactMethod: contactMethod,
+        timestamp: new Date().toISOString() // Add a timestamp
+      };
+
+      // Get a reference to the "assistanceRequests" node in the database
+      const assistanceRequestsRef = ref(database, 'assistanceRequests');
+
+      // Push the new request data to the database
+      push(assistanceRequestsRef, assistanceRequest)
+        .then(() => {
+          alert('Your request has been submitted successfully. We will get back to you soon.'); // Improve this feedback
+          assistanceForm.reset(); // Clear the form
+        })
+        .catch((error) => {
+          console.error('Error submitting request:', error);
+          alert('There was an error submitting your request. Please try again.'); //  Improve this feedback
+        });
+    });
+  </script>
+</body>
+</html>
